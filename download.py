@@ -38,6 +38,7 @@ DAILYSUMMARY = "https://connect.garmin.com/modern/proxy/wellness-service/wellnes
 
 TCX = "https://connect.garmin.com/modern/proxy/download-service/export/tcx/activity/%s"
 GPX = "https://connect.garmin.com/modern/proxy/download-service/export/gpx/activity/%s"
+ZIP = "https://connect.garmin.com/modern/proxy/download-service/files/activity/%s"
 
 def login(agent, username, password):
     global BASE_URL, GAUTH, REDIRECT, SSO, CSS
@@ -132,8 +133,8 @@ def activities(agent, outdir, increment = 100):
 
             activityId = item['activityId']
             activityDate = item['startTimeLocal'][:10]
-            url = TCX % activityId
-            file_name = '{}_{}.txt'.format(activityDate, activityId)
+            url = ZIP % activityId
+            file_name = '{}_{}.zip'.format(activityDate, activityId)
             if file_exists_in_folder(file_name, output):
                 print('{} already exists in {}. Skipping.'.format(file_name, output))
                 continue
