@@ -139,12 +139,15 @@ def activities(agent, outdir, increment = 100):
                 print('{} already exists in {}. Skipping.'.format(file_name, output))
                 continue
             print('{} is downloading...'.format(file_name))
-            datafile = agent.open(url).get_data()
-            file_path = os.path.join(outdir, file_name)
-            f = open(file_path, "w")
-            f.write(datafile)
-            f.close()
-            shutil.copy(file_path, os.path.join(os.path.dirname(os.path.dirname(file_path)), file_name))
+            try:
+                datafile = agent.open(url).get_data()
+                file_path = os.path.join(outdir, file_name)
+                f = open(file_path, "w")
+                f.write(datafile)
+                f.close()
+                shutil.copy(file_path, os.path.join(os.path.dirname(os.path.dirname(file_path)), file_name))
+            except:
+                print('ERROR: {}'.format(url))
 
         # We still have at least 1 activity.
         currentIndex += increment
